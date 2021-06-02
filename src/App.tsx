@@ -5,7 +5,7 @@ import AppContext from './contexts/AppContext';
 import appReducer, { defaultAppReducerState } from './reducers/appReducer';
 import AppContextConsumer from './AppContextConsumer';
 
-function App() {
+const App: React.FunctionComponent<unknown> = () => {
   const [state, dispatch] = useReducer(appReducer, defaultAppReducerState);
 
   return (
@@ -18,6 +18,6 @@ function App() {
       </AppContext.Provider>
     </div>
   );
-}
+};
 
 export default App;

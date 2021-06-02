@@ -19,9 +19,9 @@ type DispatcherProps = {
   dispatch: React.Dispatch<Action>;
 };
 
-type MinValueCallback = (minValue: number) => void;
-
-export default function Dispatcher({ dispatch }: DispatcherProps) {
+const Dispatcher: React.FunctionComponent<DispatcherProps> = ({
+  dispatch,
+}: DispatcherProps) => {
   const [dispatching, setDispatching] = useState<boolean>(false);
 
   return (
@@ -87,6 +87,7 @@ export default function Dispatcher({ dispatch }: DispatcherProps) {
         onClick={() => {
           setDispatching(true);
           async function handleClick() {
+            // eslint-disable-next-line no-alert
             const minValue = String(await prompt('Choose a min value.'));
             const parsedMinValue = parseInt(minValue, 10);
             setDispatching(false);
@@ -102,4 +103,6 @@ export default function Dispatcher({ dispatch }: DispatcherProps) {
       </button>
     </div>
   );
-}
+};
+
+export default Dispatcher;

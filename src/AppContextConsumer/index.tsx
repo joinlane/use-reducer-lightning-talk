@@ -4,7 +4,7 @@ import './AppContextConsumer.scss';
 import Dispatcher from './Dispatcher';
 import State from './State';
 
-export default function AppContextConsumer() {
+const AppContextConsumer: React.FunctionComponent<unknown> = () => {
   const { state, dispatch } = useContext(AppContext);
 
   return (
@@ -13,4 +13,6 @@ export default function AppContextConsumer() {
       <Dispatcher dispatch={dispatch} />
     </div>
   );
-}
+};
+
+export default AppContextConsumer;

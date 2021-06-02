@@ -6,7 +6,15 @@ type AppContextStateConsumerProps = {
   state: AppReducerState;
 };
 
-function RecursiveState({ state, keyName }: { state: any; keyName: string }) {
+type RecursiveStateProps = {
+  state: Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
+  keyName: string;
+};
+
+const RecursiveState: React.FunctionComponent<RecursiveStateProps> = ({
+  state,
+  keyName,
+}: RecursiveStateProps) => {
   return (
     <div className={`state-${keyName}`}>
       <pre>{keyName}:</pre>
@@ -34,9 +42,11 @@ function RecursiveState({ state, keyName }: { state: any; keyName: string }) {
       })}
     </div>
   );
-}
+};
 
-export default function State({ state }: AppContextStateConsumerProps) {
+const State: React.FunctionComponent<AppContextStateConsumerProps> = ({
+  state,
+}: AppContextStateConsumerProps) => {
   return (
     <>
       <h2>
@@ -48,4 +58,6 @@ export default function State({ state }: AppContextStateConsumerProps) {
       {state.error && <div className="error">Error: {state.error.message}</div>}
     </>
   );
-}
+};
+
+export default State;
