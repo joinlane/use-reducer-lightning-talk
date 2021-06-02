@@ -28,6 +28,12 @@ const RecursiveState: React.FunctionComponent<RecursiveStateProps> = ({
                 {key}={String(state[key])}
               </pre>
             );
+          case 'string':
+            return (
+              <pre className="value" key={key}>
+                {`${key}="${String(state[key])}"`}
+              </pre>
+            );
           case 'object':
             return state[key] instanceof Error ? (
               <pre key={key}>error: {state[key].message}</pre>
@@ -54,6 +60,12 @@ const State: React.FunctionComponent<AppContextStateConsumerProps> = ({
       </h2>
       <div className="state-container">
         <RecursiveState state={state} keyName="appReducerState" />
+      </div>
+      <h2>
+        <pre>Actions:</pre>
+      </h2>
+      <div className="actions">
+        <pre>{JSON.stringify(state.actions, null, 4)}</pre>
       </div>
       {state.error && <div className="error">Error: {state.error.message}</div>}
     </>

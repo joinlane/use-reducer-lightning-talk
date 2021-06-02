@@ -21,12 +21,14 @@ export type AppReducerState = {
   sampleAction?: boolean;
   innerObject: { value: number; max: number; min: number };
   error: Error | undefined;
+  actions: Array<Action>;
 };
 
 export const defaultAppReducerState: AppReducerState = {
   sampleAction: false,
   innerObject: { value: 0, max: 100, min: 0 },
   error: undefined,
+  actions: [],
 };
 
 export default function appReducer<T extends Action>(
@@ -34,6 +36,7 @@ export default function appReducer<T extends Action>(
   action: T
 ): AppReducerState {
   const newState = cloneDeep(state);
+  newState.actions.push(action);
   newState.error = undefined;
 
   try {
@@ -47,17 +50,17 @@ export default function appReducer<T extends Action>(
         if (!isIncrementValueAction(action)) {
           throw Error(UNQUALIFIED_ACTION);
         }
-        return handleIncrementValue(state, action);
+        return handleIncrementValue(newState, action);
       case DECREMENT_VALUE_ACTION:
         if (!isDecrementValueAction(action)) {
           throw Error(UNQUALIFIED_ACTION);
         }
-        return handleDecrementValue(state, action);
+        return handleDecrementValue(newState, action);
       case SET_MIN_ACTION:
         if (!isSetMinAction(action)) {
           throw Error(UNQUALIFIED_ACTION);
         }
-        return handleSetMin(state, action);
+        return handleSetMin(newState, action);
       default:
         throw new Error(`Unrecognized Action: ${action.type}`);
     }
